@@ -1,0 +1,93 @@
+import { isAuthenticated } from "@/lib/authentication";
+import { catchError } from "@/lib/helperFunction";
+import { connectDB } from "@/lib/mongodb";
+import UserModel from "@/models/User.models";
+import { NextResponse } from "next/server";
+
+export async function GET(request) {
+    try {
+        const auth = await isAuthenticated('admin')
+        if (!auth.isAuth) {
+            return response(false, 403, 'Unauthorized')
+        }
+        await connectDB()
+        const searcParams = request.nextUrl.searchParams
+
+        // extract query parameter
+        const start = parseInt(searcParams.get('start') || 0, 10)
+        const size = parseInt(searcParams.get('size') || 10, 10)
+        const filters = JSON.parse(searcParams.get('filters') || "[]")
+        const globalFilter = searcParams.get('globalFilter') || ''
+        const sorting = JSON.parse(searcParams.get('sorting') || "[]")
+        const deleteType = searcParams.get('deleteType')
+
+        //build match query
+        let matchQuery = {}
+        if (deleteType === 'SD') {
+            matchQuery = { deletedAt: null }
+        } else if (deleteType === 'PD') {
+            matchQuery = { deletedAt: { $ne: null } }
+        }
+
+        // global search
+        if (globalFilter) {
+            matchQuery["$or"] = [
+                { name: { $regex: globalFilter, $options: 'i' } },
+                { email: { $regex: globalFilter, $options: 'i' } },
+                { phone: { $regex: globalFilter, $options: 'i' } },
+                { address: { $regex: globalFilter, $options: 'i' } },
+                { isEmailVerified: { $regex: globalFilter, $options: 'i' } },
+
+            ]
+        }
+
+        // column filteration
+        filters.forEach(filter => {
+            matchQuery[filter.id] = { $regex: filter.value, $options: 'i' }
+        });
+
+        // sorting
+        let sortQuery = {}
+        sorting.forEach(sort => {
+            sortQuery[sort.id] = sort.desc ? -1 : 1
+        });
+
+        // aggregate pipleline
+        const aggregatePipeline = [
+
+            { $match: matchQuery },
+            { $sort: Object.keys(sortQuery).length ? sortQuery : { createdAt: -1 } },
+            { $skip: start },
+            { $limit: size },
+            {
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    email: 1,
+                    phone: 1,
+                    address: 1,
+                    avatar: 1,
+                    isEmailVerified: 1,
+                    createdAt: 1,
+                    updatedAt: 1,
+                    deletedAt: 1,
+                }
+            }
+        ]
+
+        // execute query
+        const getCustomers = await UserModel.aggregate(aggregatePipeline)
+
+        // get total rowscount
+        const totalRowCount = await UserModel.countDocuments(matchQuery)
+
+        return NextResponse.json({
+            success: true,
+            data: getCustomers,
+            meta: { totalRowCount }
+        })
+
+    } catch (error) {
+        return catchError(error)
+    }
+}
