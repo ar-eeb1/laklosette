@@ -22,7 +22,6 @@ import useFetch from '@/hooks/useFetch'
 import Select from '@/components/Application/Select'
 import MediaModal from '@/components/Application/Admin/MediaModal'
 import Image from 'next/image'
-import { sizes } from '@/lib/utils'
 
 
 const BreadcrumbData = [
