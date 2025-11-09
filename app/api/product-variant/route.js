@@ -4,6 +4,7 @@ import { connectDB } from "@/lib/mongodb";
 import productVariantModel from "@/models/ProductVariant.model";
 import { NextResponse } from "next/server";
 
+
 export async function GET(request) {
     try {
         const auth = await isAuthenticated('admin')

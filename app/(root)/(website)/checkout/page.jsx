@@ -36,7 +36,7 @@ const Checkout = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const cart = useSelector(store => store.cartStore)
-  const auth = useSelector(store => store.authStore)
+  const authStore = useSelector(store => store.authStore)
   const [verifiedCartData, setVerifiedCartData] = useState([])
   const { data: getVerifiedCartData } = useFetch('/api/cart-verification', 'POST', { data: cart.products })
 
@@ -151,9 +151,16 @@ const Checkout = () => {
       pincode: '',
       landmark: '',
       ordernote: '',
-      userId: auth?._id,
+      userId: authStore?.auth?._id,
     }
   })
+
+  useEffect(() => {
+    if (authStore) {
+      orderForm.setValue('userId', authStore?.auth?._id)
+    }
+  }, [authStore])
+
 
   // get order id
   const getOrderId = async (amount) => {
@@ -305,7 +312,7 @@ const Checkout = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input placeholder='Enter Your Country' {...field}  />
+                            <Input placeholder='Enter Your Country' {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

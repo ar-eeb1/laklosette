@@ -29,7 +29,7 @@ export async function POST(request) {
         }
 
         const loggedInUserData = {
-            _id: getUser._id,
+            _id: getUser._id.toString(),
             role: getUser.role,
             name: getUser.name,
             avatar: getUser.avatar,
@@ -54,7 +54,7 @@ export async function POST(request) {
         // remove otp after validation
 
         await getOtpData.deleteOne()
-        return response(true, 200, 'Login Successful',loggedInUserData)
+        return response(true, 200, 'Login Successful', loggedInUserData)
 
     } catch (error) {
         return catchError(error)

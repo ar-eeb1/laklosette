@@ -139,23 +139,85 @@ const OrderDetails = async ({ params }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <h4 className="text-2xl font-bold text-gray-800">Shipping Address</h4>
+                <h4 className="text-2xl font-bold text-gray-800">Order Summary</h4>
               </div>
               <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 border border-gray-200">
                 <table className="w-full">
                   <tbody className="space-y-3">
                     <tr className="border-b border-gray-200">
-                      <td className="font-bold py-4 text-gray-700 w-1/3">Name</td>
-                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.name}</td>
+                      <td className="font-bold py-4 text-gray-700 w-full">Name</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.name}</td>
                     </tr>
-                    <tr>
-                      <td className="font-bold py-4 text-gray-700 w-1/3">Email</td>
-                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.email}</td>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Email</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.email}</td>
                     </tr>
-                    <tr>
-                      <td className="font-bold py-4 text-gray-700 w-1/3">Address</td>
-                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.city} - {orderData?.data?.country} - {orderData?.data?.landmark}</td>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Phone</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.phone}</td>
                     </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Country</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.country}</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">State</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.state}</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">City</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.city}</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Pincode</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.pincode}</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Address</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.landmark}</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Order Note</td>
+                      <td className="py-4 text-gray-900 font-medium text-end">{orderData?.data?.ordernote || '---'}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+              <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-blue-500">
+                <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <h4 className="text-2xl font-bold text-gray-800">Shipping Address</h4>
+              </div>
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 border border-gray-200">
+                <table className="w-full">
+                  <tbody className="space-y-3">
+                    
+                    <tr className="border-b border-gray-200  ">
+                      <td className="font-bold py-4 text-gray-700 w-full">Subtotal</td>
+                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.subtotal.toLocaleString('en-PK', { style: "currency", currency: 'PKR' })}</td>
+                    </tr>
+
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Discount</td>
+                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.discount.toLocaleString('en-PK', { style: "currency", currency: 'PKR' })}</td>
+                    </tr>
+
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Coupon Discount</td>
+                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.couponDiscountAmount.toLocaleString('en-PK', { style: "currency", currency: 'PKR' })}</td>
+                    </tr>
+
+                    <tr className="border-b border-gray-200">
+                      <td className="font-bold py-4 text-gray-700 w-full">Total</td>
+                      <td className="py-4 text-gray-900 font-medium">{orderData?.data?.totalAmount.toLocaleString('en-PK', { style: "currency", currency: 'PKR' })}</td>
+                    </tr>
+
                   </tbody>
                 </table>
               </div>

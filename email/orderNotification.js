@@ -1,5 +1,5 @@
 export const orderNotification = (data) => {
-  const html = `
+	const html = `
         <!DOCTYPE html>
   <html lang="en-US" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
@@ -209,10 +209,10 @@ export const orderNotification = (data) => {
 															<td class="pad"
 																style="width:100%;padding-right:0px;padding-left:0px;">
 																<div align="center" class="alignment">
-																	<div style="max-width: 248px;"><img alt="Logo"
-																			height="auto" src="https://res.cloudinary.com/do7xdfl3y/image/upload/v1746551738/next-ecommerce/logo-black_bxt60d.png"
-																			style="display: block; height: auto; border: 0; width: 100%;"
-																			title="Logo" width="248" /></div>
+																	<div style="max-width: 248px; text-align: center; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: bold; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">
+  La Klosette
+</div>
+
 																</div>
 															</td>
 														</tr>
@@ -756,5 +756,5 @@ export const orderNotification = (data) => {
 </html>
 `;
 
-  return html;
+	return html;
 };

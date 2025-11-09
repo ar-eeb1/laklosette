@@ -60,7 +60,7 @@ const CountOverview = () => {
                 <div className='flex items-center justify-between p-3 rounded-lg border shadow border-l-4 border-l-cyan-400 bg-white dark:bg-card dark:border-gray-800 dark:border-l-cyan-400'>
                     <div>
                         <h4 className='font-medium text-gray-500 '>Total Orders</h4>
-                        <span className='text-xl font-bold'>10</span>
+                        <span className='text-xl font-bold'>{countData?.data?.order || 0}</span>
                     </div>
                     <div>
                         <span className='w-12 h-12 border flex items-center justify-center rounded-full bg-cyan-500 text-white'>

@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import {
     Table,
     TableBody,
@@ -10,11 +11,35 @@ import {
 } from "@/components/ui/table"
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import ImgPlaceholder from '@/public/products/41o7qz+iJfL.jpg'
-import { Star } from 'lucide-react'
 import { IoStar } from 'react-icons/io5'
+import useFetch from '@/hooks/useFetch'
+import notFound from '@/public/assets/notFound.jpg'
+import Image from 'next/image'
 
 
 const LatestReview = () => {
+    const [latestReview, setLatestReview] = useState()
+    const { data: getLatestReview, loading } = useFetch('/api/dashboard/admin/latest-review')
+
+    useEffect(() => {
+        if (getLatestReview && getLatestReview.success) {
+            setLatestReview(getLatestReview.data)
+        }
+    }, [getLatestReview])
+
+    
+    if (loading) return <div className='h-full w-full flex justify-center items-center'>Loading...</div>
+    if (!latestReview || latestReview.length === 0) return <div className='h-full w-full flex justify-center items-center'>
+        <Image
+            src={notFound.src}
+            width={notFound.width}
+            height={notFound.height}
+            alt='IMAGE NOT FOUND'
+            className='w-20'
+        />
+    </div>
+
+
     return (
         <div>
             <Table>
@@ -25,26 +50,26 @@ const LatestReview = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody >
-                    {Array.from({ length: 10 }).map((_, i) => (
-                        <TableRow key={i} >
+
+                    {latestReview?.map((review) => (
+                        <TableRow key={review._id} >
                             <TableCell className='flex items-center gap-3'>
                                 <Avatar>
                                     <AvatarImage
-                                        src={ImgPlaceholder.src}
+                                        src={review?.product?.media[0]?.secure_url || ImgPlaceholder.src}
                                     />
                                 </Avatar>
-                                <span className='line-clamp-1'>Lorem ipsum dolor sit amet.</span>
+                                <span className='line-clamp-1'>{review?.product?.name || 'Not Found'}</span>
                             </TableCell>
                             <TableCell>
                                 <div className='flex items-center'>
-                                    {Array.from({ length: 5 }).map((_, i) => (
-                                        <IoStar key={i} className='fill-yellow-500'/>
+                                    {Array.from({ length: review.rating }).map((_, i) => (
+                                        <IoStar key={i} className='fill-yellow-500' />
                                     ))}
                                 </div>
                             </TableCell>
                         </TableRow>
                     ))}
-
                 </TableBody>
             </Table>
         </div>

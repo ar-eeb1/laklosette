@@ -1,36 +1,55 @@
-import React from 'react'
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+'use client'
+import React, { useEffect, useState } from 'react'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
+import useFetch from '@/hooks/useFetch'
+import notFound from '@/public/assets/notFound.jpg'
+import Image from 'next/image'
+import { statusBadge } from '@/lib/helperFunction'
 
 const LatestOrder = () => {
+    const [latestOrder, setLatestOrder] = useState()
+    const { data, loading } = useFetch('/api/dashboard/admin/latest-order')
+
+
+    useEffect(() => {
+        if (data && data.success) {
+            setLatestOrder(data.data)
+        }
+    }, [data])
+    
+    
+
+    if (loading) return <div className='h-full w-full flex justify-center items-center'>Loading...</div>
+
+    if (!latestOrder || latestOrder.length === 0) return <div className='h-full w-full flex justify-center items-center'>
+        <Image
+            src={notFound.src}
+            width={notFound.width}
+            height={notFound.height}
+            alt='IMAGE NOT FOUND'
+            className='w-20'
+        />
+    </div>
+
+
     return (
         <div>
             <Table>
                 <TableHeader>
                     <TableRow >
                         <TableHead>Order Id</TableHead>
-                        <TableHead>Payment Id</TableHead>
                         <TableHead>Items</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Amount</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {Array.from({ length: 20 }).map((_, i) => (
-                        <TableRow key={i}>
-                            <TableCell className="font-medium">{`INV00${i}`}</TableCell>
-                            <TableCell >{`Pay${Math.floor((Math.random()+1)*1000)}`}</TableCell>
-                            {/* <TableCell>Paid</TableCell> */}
-                            <TableCell>{Math.floor((Math.random()+1)*10)}</TableCell>
-                            <TableCell>Pending</TableCell>
-                            <TableCell className="font-bold">$250.00</TableCell>
+                    {latestOrder?.map((order) => (
+                        <TableRow key={order._id}>
+                            <TableHead>{order._id}</TableHead>
+                            <TableHead>{order.products.length}</TableHead>
+                            <TableHead>{statusBadge(order.status)}</TableHead>
+                            <TableHead>{order.totalAmount}</TableHead>
                         </TableRow>
                     ))}
 

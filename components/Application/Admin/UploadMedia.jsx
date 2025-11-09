@@ -39,7 +39,7 @@ const UploadMedia = ({ isMultiple, queryClient }) => {
         <div>
             <CldUploadWidget
                 signatureEndpoint='/api/cloudinary-signature'
-                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPDATE_PRESET}
+                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                 onError={handleOnError}
                 onQueuesEnd={handleOnQueueEnd}
                 config={{

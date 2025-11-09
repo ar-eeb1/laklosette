@@ -1,4 +1,4 @@
-import { WEBSITE_HOME, WEBSITE_LOGIN, WEBSITE_REGISTER } from '@/routes/WebsiteRoute'
+import { USER_DASHBOARD, WEBSITE_HOME, WEBSITE_LOGIN, WEBSITE_REGISTER, WEBSITE_SHOP } from '@/routes/WebsiteRoute'
 import Image from 'next/image'
 import blackLogo from '@/public/assets/blackLogo.png'
 import Link from 'next/link'
@@ -26,11 +26,11 @@ const Footer = () => {
                 <div>
                     <h4 className=' text-sm md:text-xl md:font-bold uppercase mb-3 md:mb-5'>Categories</h4>
                     <ul>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>T-Shirt</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Hoddies</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Oversized</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Full Sleeves</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Polo</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={`${WEBSITE_SHOP}?category=t-shirts`}>T-Shirt</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={`${WEBSITE_SHOP}?category=hoodies`}>Hoddies</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={`${WEBSITE_SHOP}?category=oversized`}>Oversized</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={`${WEBSITE_SHOP}?category=full-sleeves`}>Full Sleeves</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={`${WEBSITE_SHOP}?category=polo`}>Polo</Link></li>
                     </ul>
                 </div>
 
@@ -38,8 +38,8 @@ const Footer = () => {
                     <h4 className=' text-sm md:text-xl md:font-bold uppercase mb-3 md:mb-5'>Useful Links</h4>
                     <ul>
                         <li className='md:mb-2 text-sm text-gray-500'><Link href={WEBSITE_HOME}>Home</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Shop</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>About</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={WEBSITE_SHOP}>Shop</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href='/about-us'>About</Link></li>
                         <li className='md:mb-2 text-sm text-gray-500'><Link href={WEBSITE_REGISTER}>Register</Link></li>
                         <li className='md:mb-2 text-sm text-gray-500'><Link href={WEBSITE_LOGIN}>Login</Link></li>
                     </ul>
@@ -50,9 +50,9 @@ const Footer = () => {
                     <ul>
                         <li className='md:mb-2 text-sm text-gray-500'><Link href={WEBSITE_REGISTER}>Register</Link></li>
                         <li className='md:mb-2 text-sm text-gray-500'><Link href={WEBSITE_LOGIN}>Login</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>My Account</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Privacy Policy</Link></li>
-                        <li className='md:mb-2 text-sm text-gray-500'><Link href=''>Terms & Condition</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href={USER_DASHBOARD}>My Account</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href='/privacy-policy'>Privacy Policy</Link></li>
+                        <li className='md:mb-2 text-sm text-gray-500'><Link href='/term-and-conditions'>Terms & Condition</Link></li>
                     </ul>
                 </div>
 
