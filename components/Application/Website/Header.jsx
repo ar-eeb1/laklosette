@@ -56,32 +56,32 @@ const Header = () => {
                         </div>
                         <ul className='lg:flex lg:justify-between lg:items-center lg:gap-10 lg:flex-row lg:px-0 px-6 flex flex-col items-start gap-1 lg:pt-0 pt-8'>
                             <li className='w-full lg:w-auto group'>
-                                <Link href={WEBSITE_HOME} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
+                                <Link onClick={() => setIsMobileMenu(false)} href={WEBSITE_HOME} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
                                     Home
                                 </Link>
                             </li>
                             <li className='w-full lg:w-auto group'>
-                                <Link href='/about-us' className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
+                                <Link onClick={() => setIsMobileMenu(false)} href='/about-us' className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
                                     About
                                 </Link>
                             </li>
                             <li className='w-full lg:w-auto group'>
-                                <Link href={`${WEBSITE_SHOP}`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
+                                <Link onClick={() => setIsMobileMenu(false)} href={`${WEBSITE_SHOP}`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
                                     Shop
                                 </Link>
                             </li>
                             <li className='w-full lg:w-auto group'>
-                                <Link href={`${WEBSITE_SHOP}?category=t-shirts`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
+                                <Link onClick={() => setIsMobileMenu(false)} href={`${WEBSITE_SHOP}?category=t-shirts`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
                                     T-Shirt
                                 </Link>
                             </li>
                             <li className='w-full lg:w-auto group'>
-                                <Link href={`${WEBSITE_SHOP}?category=hoodies`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
+                                <Link onClick={() => setIsMobileMenu(false)} href={`${WEBSITE_SHOP}?category=hoodies`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
                                     Hoodies
                                 </Link>
                             </li>
                             <li className='w-full lg:w-auto group'>
-                                <Link href={`${WEBSITE_SHOP}?category=oversized`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
+                                <Link onClick={() => setIsMobileMenu(false)} href={`${WEBSITE_SHOP}?category=oversized`} className='block py-3 lg:py-2 text-gray-700 hover:text-primary font-medium transition-all duration-200 relative lg:after:content-[""] lg:after:absolute lg:after:bottom-0 lg:after:left-0 lg:after:w-0 lg:after:h-0.5 lg:after:bg-primary lg:after:transition-all lg:after:duration-300 lg:hover:after:w-full rounded-lg lg:rounded-none lg:hover:bg-transparent hover:bg-gray-50 lg:px-0 px-4'>
                                     Oversized
                                 </Link>
                             </li>
@@ -140,7 +140,7 @@ const Header = () => {
                     onClick={() => setIsMobileMenu(false)}
                 />
             )}
-            <Search isShow={showSearch}/>
+            <Search isShow={showSearch} />
         </div>
     )
 }

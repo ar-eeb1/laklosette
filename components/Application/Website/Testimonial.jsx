@@ -67,26 +67,27 @@ const Testimonial = () => {
         infinite: true,
         speed: 500,
         autoplay: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
+        // slidesToShow: 3,
+        // slidesToScroll: 1,
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    dots: false,
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: true,
-                }
-            },
             {
                 breakpoint: 768,
                 settings: {
                     dots: false,
                     slidesToShow: 1,
-                    slidesToScroll: 1,
+                    // slidesToScroll: 1,
                 }
             },
+            {
+                breakpoint: 1024,
+                settings: {
+                    dots: false,
+                    slidesToShow: 2,
+                    // slidesToScroll: 1,
+                    infinite: true,
+                }
+            },
+
         ]
     }
 

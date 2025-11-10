@@ -6,42 +6,47 @@ import Link from 'next/link'
 import { WEBSITE_PRODUCT_DETAILS } from '@/routes/WebsiteRoute'
 
 const ProductBox = ({ product }) => {
-
     return (
-        <div className="shadow rounded-lg cursor-pointer hover:scale-105 transition-all duration-150 hover:shadow-2xl overflow-hidden">
+        <div className="shadow rounded-lg cursor-pointer hover:scale-105 transition-all duration-150 hover:shadow-2xl overflow-hidden w-full">
             <Link href={WEBSITE_PRODUCT_DETAILS(product.slug)}>
-                <div className="relative lg:w-[400px] lg:h-[350px]  md:w-[200px] md:h-[200px] h-[100px] w-[100px] overflow-hidden group object-top ">
+                <div className='relative w-full aspect-[3/4] overflow-hidden group'>
                     <Image
                         src={product?.media?.[0]?.secure_url || notFound.src}
-                        width={400}
-                        height={400}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 300px"
                         alt={product?.media?.[0]?.alt || product?.name}
                         title={product?.media?.[0]?.title || product?.name}
-                        className="w-full object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0 object-top"
+                        className="object-cover object-top transition-opacity duration-500 opacity-100 group-hover:opacity-0"
                     />
-
                     {product?.media?.[1] && (
                         <Image
                             src={product.media[1].secure_url}
-                            width={400}
-                            height={400}
+                            fill
+                            sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 300px"
                             alt={product?.media?.[1]?.alt || product?.name}
                             title={product?.media?.[1]?.title || product?.name}
-                            className="w-full object-cover  transition-opacity duration-500 opacity-0 group-hover:opacity-100 absolute top-0 left-0"
+                            className="object-cover object-top transition-opacity duration-500 opacity-0 group-hover:opacity-100 absolute top-0 left-0"
                         />
                     )}
-
                 </div>
 
-                <div className="p-3 ">
-                    <div className='flex justify-between  w-full'>
-                        <h4 className=''>{product?.name}</h4>
-                        <span className='text-end text-red-500 font-bold animate-pulse delay-100 text-[12px]'>{product.discountPercentage}% Off</span>
+                <div className="p-2 sm:p-3">
+                    <div className='flex justify-between items-start w-full gap-2'>
+                        <h4 className='text-sm sm:text-base line-clamp-1 flex-1'>{product?.name}</h4>
+                        {product.discountPercentage > 0 && (
+                            <span className='text-red-500 font-bold text-[10px] sm:text-xs whitespace-nowrap'>
+                                {product.discountPercentage}% Off
+                            </span>
+                        )}
                     </div>
-                    <p className='flex gap-2 items-start '>
-                        <span className="line-through text-gray-400 mr-2">{product?.mrp.toLocaleString('en-PK', { style: 'currency', currency: 'PKR' })}</span>
-                        <span className="font-semibold">{product?.sellingPrice.toLocaleString('en-PK', { style: 'currency', currency: 'PKR' })}</span>
-                    </p>
+                    <div className='flex gap-1 sm:gap-2 items-center flex-wrap mt-1'>
+                        <span className="line-through text-gray-400 text-xs sm:text-sm">
+                            Rs {product?.mrp.toLocaleString('en-PK')}
+                        </span>
+                        <span className="font-semibold text-sm sm:text-base">
+                            Rs {product?.sellingPrice.toLocaleString('en-PK')}
+                        </span>
+                    </div>
                 </div>
             </Link>
         </div>

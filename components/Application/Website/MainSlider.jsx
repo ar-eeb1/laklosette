@@ -6,7 +6,6 @@ import Slider from 'react-slick';
 import slider1 from '@/public/assets/images/slider-1.png'
 import slider2 from '@/public/assets/images/slider-2.png'
 import slider3 from '@/public/assets/images/slider-3.png'
-import slider4 from '@/public/assets/images/slider-4.png'
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
@@ -61,9 +60,6 @@ const MainSlider = () => {
                 </div>
                 <div>
                     <Image src={slider3.src} width={slider3.width} height={slider3.height} alt='slider3'></Image>
-                </div>
-                <div>
-                    <Image src={slider4.src} width={slider4.width} height={slider4.height} alt='slider4'></Image>
                 </div>
             </Slider>
         </div>
