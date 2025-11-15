@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/mongodb";
 import { zSchema } from "@/lib/zodSchema";
 import { isAuthenticated } from "@/lib/authentication";
 import productVariantModel from "@/models/ProductVariant.model";
+import { encode } from "entities";
 
 export async function PUT(request) {
     try {
@@ -13,20 +14,20 @@ export async function PUT(request) {
 
         await connectDB()
         const payload = await request.json()
+
         const schema = zSchema.pick({
             _id: true,
             product: true,
-            sku: true,
-            color: true,
-            size: true,
             mrp: true,
             sellingPrice: true,
             discountPercentage: true,
             media: true,
+            category: true,
         })
+
         const validate = schema.safeParse(payload)
         if (!validate.success) {
-            return response(false, 400, 'invalid or missing fields', validate.error)
+            return response(false, 400, 'Invalidate or Missing fields', validate.error)
         }
         const validatedData = validate.data
         const getProductVariant = await productVariantModel.findOne({ deletedAt: null, _id: validatedData._id })
@@ -34,9 +35,6 @@ export async function PUT(request) {
             return response(false, 404, 'Data not found')
         }
         getProductVariant.product = validatedData.product
-        getProductVariant.color = validatedData.color
-        getProductVariant.size = validatedData.size
-        getProductVariant.sku = validatedData.sku
         getProductVariant.category = validatedData.category
         getProductVariant.mrp = validatedData.mrp
         getProductVariant.sellingPrice = validatedData.sellingPrice

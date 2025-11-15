@@ -1,7 +1,7 @@
 'use client'
 import React, { use, useEffect, useState } from 'react'
 import BreadCrumb from '@/components/Application/Admin/BreadCrumb'
-import { ADMIN_DASHBOARD, ADMIN_PRODUCT_SHOW } from '@/routes/AdminPanelRoute'
+import { ADMIN_DASHBOARD, ADMIN_PRODUCT_SHOW, ADMIN_PRODUCT_VARIANT_SHOW } from '@/routes/AdminPanelRoute'
 import {
   Form,
   FormControl,
@@ -28,8 +28,8 @@ import Image from 'next/image'
 
 const BreadcrumbData = [
   { href: ADMIN_DASHBOARD, label: 'Home' },
-  { href: ADMIN_PRODUCT_SHOW, label: 'Products' },
-  { href: '', label: 'Edit Products' },
+  { href: ADMIN_PRODUCT_VARIANT_SHOW, label: 'Product Variants' },
+  { href: '', label: 'Edit Product Variants' },
 ]
 
 const EditProduct = ({ params }) => {
@@ -38,7 +38,7 @@ const EditProduct = ({ params }) => {
   const [loading, setLoading] = useState(false)
   const [categoryOption, setCategoryOption] = useState([])
   const { data: getCategory } = useFetch('/api/category?deleteType=SD&&size=10000')
-  const { data: getProduct, loading: getProductLoading } = useFetch(`/api/product/get/${id}`)
+  const { data: getProduct, loading: getProductLoading } = useFetch(`/api/product-variant/get/${id}`)
 
   useEffect(() => {
     if (getCategory && getCategory.success) {
@@ -48,10 +48,10 @@ const EditProduct = ({ params }) => {
     }
   }, [getCategory])
 
-  const editor = (event, editor) => {
-    const data = editor.getData()
-    form.setValue('description', data)
-  }
+  // const editor = (event, editor) => {
+  //   const data = editor.getData()
+  //   form.setValue('description', data)
+  // }
 
   const formSchema = zSchema.pick({
     _id: true,
@@ -61,7 +61,8 @@ const EditProduct = ({ params }) => {
     mrp: true,
     sellingPrice: true,
     discountPercentage: true,
-    description: true,
+    // description: true,
+    product: true,
   })
 
   const form = useForm({
@@ -69,12 +70,13 @@ const EditProduct = ({ params }) => {
     defaultValues: {
       _id: id,
       name: '',
+      product: '',
       slug: '',
       category: '',
       mrp: 0,
       sellingPrice: 0,
       discountPercentage: 0,
-      description: '',
+      // description: '',
     }
   })
 
@@ -83,13 +85,14 @@ const EditProduct = ({ params }) => {
       const product = getProduct.data
       form.reset({
         _id: product?._id,
-        name: product?.name,
-        slug: product?.slug,
-        category: product?.category,
+        name: product.product?.name,
+        product: product.product?._id,
+        slug: product.product?.slug,
+        category: product.product?.category,
         mrp: product?.mrp,
         sellingPrice: product?.sellingPrice,
         discountPercentage: product?.discountPercentage,
-        description: product?.description,
+        // description: product?.description,
       })
 
       if (product.media) {
@@ -108,7 +111,8 @@ const EditProduct = ({ params }) => {
       }
       const mediaIds = selectedMedia.map(media => media._id)
       values.media = mediaIds
-      const { data: response } = await axios.put('/api/product/update', values)
+      values.product = form.getValues('product')
+      const { data: response } = await axios.put('/api/product-variant/update', values)
       if (!response.success) {
         throw new Error(response.message)
       }
@@ -148,7 +152,7 @@ const EditProduct = ({ params }) => {
       <BreadCrumb BreadcrumbData={BreadcrumbData} />
       <Card className='py-0 shadow-sm'>
         <CardHeader className='pt-3 px-3 border-b [.border-b]:pb-2'>
-          <h4 className='text-xl font-semibold'>Edit Product</h4>
+          <h4 className='text-xl font-semibold'>Edit Product Variant</h4>
         </CardHeader>
         <CardContent>
 
@@ -164,9 +168,9 @@ const EditProduct = ({ params }) => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Name <span className='text-red-500'>*</span></FormLabel>
+                        <FormLabel>Name (fixed) <span className='text-red-500'>*</span></FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="Enter category name" {...field} />
+                          <Input type="text" placeholder="Enter category name" {...field} readOnly/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -180,9 +184,9 @@ const EditProduct = ({ params }) => {
                     name="slug"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Slug <span className='text-red-500'>*</span></FormLabel>
+                        <FormLabel>Slug (fixed) <span className='text-red-500'>*</span></FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="Enter Slug" {...field} />
+                          <Input type="text" placeholder="Enter Slug" {...field} readOnly/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -259,13 +263,13 @@ const EditProduct = ({ params }) => {
                   />
                 </div>
 
-                <div className='mb-3 md:col-span-2'>
+                {/* <div className='mb-3 md:col-span-2'>
                   <FormLabel className='mb-2'>Description <span className='text-red-500'>*</span></FormLabel>
                   {!getProductLoading &&
                     <Editor onChange={editor} initialData={form.getValues('description')} />
                   }
                   <FormMessage></FormMessage>
-                </div>
+                </div> */}
 
               </div>
 

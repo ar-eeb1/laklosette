@@ -13,6 +13,11 @@ const productSchema = new mongoose.Schema({
         lowercase: true,
         trim: true
     },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    },
     mrp: {
         type: Number,
         required: true,
@@ -48,6 +53,6 @@ const productSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
-productSchema.index({ expiresAt: 1 })
+productSchema.index({ category: 1 })
 const ProductModel = mongoose.models.Product || mongoose.model('Product', productSchema, 'products')
 export default ProductModel

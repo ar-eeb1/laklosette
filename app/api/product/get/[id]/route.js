@@ -4,6 +4,8 @@ import { connectDB } from "@/lib/mongodb";
 import { isValidObjectId } from "mongoose";
 import ProductModel from "@/models/Product.model";
 import MediaModel from "@/models/Media.model";
+import productVariantModel from "@/models/ProductVariant.model";
+import CategoryModel from "@/models/Category.model";
 
 export async function GET(request, { params }) {
     try {

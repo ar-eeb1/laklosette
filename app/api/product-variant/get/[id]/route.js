@@ -3,6 +3,7 @@ import { isAuthenticated } from "@/lib/authentication";
 import { connectDB } from "@/lib/mongodb";
 import { isValidObjectId } from "mongoose";
 import productVariantModel from "@/models/ProductVariant.model";
+import MediaModel from "@/models/Media.model";
 
 export async function GET(request, { params }) {
     try {
@@ -23,7 +24,7 @@ export async function GET(request, { params }) {
         }
         filter._id = id
 
-        const getProductVariant = await productVariantModel.findOne(filter).populate('media', '_id secure_url').lean()
+        const getProductVariant = await productVariantModel.findOne(filter).populate('media', '_id secure_url').populate('product' , 'name slug category description').lean()
         if (!getProductVariant) {
             return response(false, 404, 'Product Variant not found')
         }
